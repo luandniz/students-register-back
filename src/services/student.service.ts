@@ -10,9 +10,25 @@ export const createStudentService = async (
   return newStudent;
 };
 
-export const readStudentsService = async (): Promise<Student[]> => {
-  const students: Student[] = await studentRepo.find();
+export const readStudentsService = async (
+  queryParams: Partial<Omit<Student, "id">>
+): Promise<Student[]> => {
+  const { name, email, cpf } = queryParams;
+  const queryBuilder = studentRepo.createQueryBuilder("student");
 
+  if (name) {
+    queryBuilder.andWhere("student.name LIKE :name", { name: `%${name}%` });
+  }
+
+  if (email) {
+    queryBuilder.andWhere("student.email LIKE :email", { email: `%${email}%` });
+  }
+
+  if (cpf) {
+    queryBuilder.andWhere("student.cpf LIKE :cpf", { cpf: `%${cpf}%` });
+  }
+
+  const students: Student[] = await queryBuilder.getMany();
   return students;
 };
 

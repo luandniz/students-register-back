@@ -11,7 +11,10 @@ export const verifyCpfExists = async (
   const cpf = req.body.cpf;
   const method = req.method;
 
+  if (!cpf) return next();
+
   if (method === "POST") {
+    // Check if the CPF is already in use for POST requests
     const cpfInUse: Student | null = await studentRepo.findOneBy({ cpf: cpf });
 
     if (cpfInUse) {
@@ -20,6 +23,7 @@ export const verifyCpfExists = async (
   } else if (method === "PATCH") {
     const studentId = req.params.studentId;
 
+    // Find the student by ID to verify existence and current CPF
     const foundStudent: Student | null = await studentRepo.findOneBy({
       id: Number(studentId),
     });
@@ -28,6 +32,7 @@ export const verifyCpfExists = async (
       throw new AppError("Student not found", 404);
     }
 
+    // If the CPF is different from the current CPF, check for its uniqueness
     if (foundStudent.cpf !== cpf) {
       const cpfInUse: Student | null = await studentRepo.findOneBy({
         cpf: cpf,

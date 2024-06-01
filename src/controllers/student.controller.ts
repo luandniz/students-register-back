@@ -20,7 +20,13 @@ export const readStudentsController = async (
   req: Request,
   res: Response
 ): Promise<Response> => {
-  const students: Student[] = await readStudentsService();
+  const queryParams = {
+    name: req.query.name as string,
+    email: req.query.email as string,
+    cpf: req.query.cpf as string,
+  };
+
+  const students = await readStudentsService(queryParams);
 
   return res.status(200).json(students);
 };

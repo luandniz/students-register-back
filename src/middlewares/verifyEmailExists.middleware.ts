@@ -11,6 +11,8 @@ export const verifyEmailExists = async (
   const email = req.body.email;
   const method = req.method;
 
+  if (!email) return next();
+
   if (method === "POST") {
     const emailInUse: Student | null = await studentRepo.findOneBy({
       email: email,
