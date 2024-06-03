@@ -41,11 +41,13 @@ Dentro do diretório da sua aplicação, crie um arquivo .env e defina as variá
 
 5. Executar as migrações do TypeORM:
 
-Execute o seguinte comando para aplicar as migrações definidas no projeto e criar a estrutura inicial do banco de dados:
+    Execute o seguinte comando para aplicar as migrações definidas no projeto e criar a estrutura inicial do banco de dados:
     ```bash
     npm run typeorm migration:run -- -d src/data-source
 
-Caso você esteja usando yarn, o comando será:
+
+   Caso você esteja usando yarn, o comando será:
+    
     ```bash
     npm run typeorm migration:run -d src/data-source
 
@@ -225,6 +227,6 @@ No exemplo a requisição foi feita com um cpf que já está cadastrado no banco
 Não é necessário um corpo da requisição.
 ```
 
-Caso dê tudo certo, a resposta retornará o status 200:
+Caso dê tudo certo, o status da requisição será 200:
 
 
