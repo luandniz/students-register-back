@@ -17,15 +17,17 @@ export const readStudentsService = async (
   const queryBuilder = studentRepo.createQueryBuilder("student");
 
   if (name) {
-    queryBuilder.andWhere("student.name LIKE :name", { name: `%${name}%` });
+    queryBuilder.andWhere("student.name ILIKE :name", { name: `%${name}%` });
   }
 
   if (email) {
-    queryBuilder.andWhere("student.email LIKE :email", { email: `%${email}%` });
+    queryBuilder.andWhere("student.email ILIKE :email", {
+      email: `%${email}%`,
+    });
   }
 
   if (cpf) {
-    queryBuilder.andWhere("student.cpf LIKE :cpf", { cpf: `%${cpf}%` });
+    queryBuilder.andWhere("student.cpf ILIKE :cpf", { cpf: `%${cpf}%` });
   }
 
   const students: Student[] = await queryBuilder.getMany();
