@@ -48,7 +48,6 @@ Dentro do diretório da sua aplicação, crie um arquivo .env e defina as variá
 
 Caso você esteja usando yarn, o comando será:
     
-    ```bash
     npm run typeorm migration:run -d src/data-source
 
   
