@@ -7,7 +7,7 @@ const cors = require("cors");
 export const app: Application = express();
 
 app.use(json());
-app.use(cors({ origin: "http://localhost:5173" }));
+app.use(cors({ origin: "*" }));
 app.use("/", routes);
 
 app.use(handleErrors);
